@@ -1,0 +1,11 @@
+{
+  "name": "simple-calculator",
+  "version": "1.0.0",
+  "description": "project for university",
+  "main": "index.js",
+  "author": "Mehmed Yunuz <stu2401322028@uni-plovdiv.bg>",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
