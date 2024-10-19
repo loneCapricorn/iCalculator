@@ -5,8 +5,9 @@
   "author": "Mehmed Yunuz <yyunuzmehmed@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack",
-    "start": "webpack serve"
+    "start": "webpack serve",
+    "build-dev": "ENVIRONMENT_TO_USE=development webpack",
+    "build-prod": "ENVIRONMENT_TO_USE=production webpack"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
