@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  mode: process.env.ENVIRONMENT_TO_USE,
+  mode: 'development', // development | production | none
   entry: {
     bundle: path.resolve(__dirname, "src/index.js"),
   },
