@@ -1,5 +1,12 @@
 /**
  *
+ * @param {String} id
+ * @returns {HTMLElement | null}
+ */
+export const getElementById = (id) => document.getElementById(id);
+
+/**
+ *
  * @param {HTMLElement} element
  * @param {Event} event
  * @param {Function} callback
