@@ -1,9 +1,5 @@
-/* Reset styles */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
-  scroll-behavior: smooth;
 }
 
 /* Components */
@@ -18,5 +14,45 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  #main-container {
+    background-color: black;
+    border-radius: 30px;
+    color: white;
+    font-size: x-large;
+    height: 700px;
+    width: 350px;
+  }
+
+  #display {
+    height: 270px;
+  }
+
+  #buttons-container {
+    display: grid;
+    padding: 20px 10px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .btn {
+    background-color: gray;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px auto;
+    height: 65px;
+    width: 65px;
+  }
+
+  .btn:hover {
+    cursor: pointer;
+  }
+
+  #zero {
+    width: 145px;
+    border-radius: 50px;
+    grid-column: span 2 / span 2;
   }
 }
