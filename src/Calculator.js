@@ -68,6 +68,16 @@ class Calculator {
       }
     });
 
+    addEvent(plusMinus, 'click', () => {
+      if (this.#displayElement.textContent[0] !== '-') {
+        this.#displayElement.textContent =
+          '-' + this.#displayElement.textContent;
+      } else {
+        this.#displayElement.textContent =
+          this.#displayElement.textContent.slice(1);
+      }
+    });
+
     addEvent(equals, 'click', () => {
       this.#secondOperand = this.#displayElement.textContent;
 
