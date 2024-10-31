@@ -62,6 +62,12 @@ class Calculator {
     addEvent(multiplication, 'click', cb);
     addEvent(division, 'click', cb);
 
+    addEvent(dot, 'click', () => {
+      if (!this.#displayElement.textContent.includes('.')) {
+        this.#displayElement.textContent += '.';
+      }
+    });
+
     addEvent(equals, 'click', () => {
       this.#secondOperand = this.#displayElement.textContent;
 
