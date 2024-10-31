@@ -9,8 +9,8 @@ class Calculator {
   #displayElement;
 
   #firstOperand;
-  #secondOperand;
   #operator;
+  #secondOperand;
   #isOperatorActive = false;
 
   constructor() {
@@ -22,10 +22,10 @@ class Calculator {
   #attachListenersToNumBtns() {
     const numBtns = getNumBtns();
 
-    const callback = (event) => {
+    const cb = (event) => {
       if (this.#isOperatorActive) {
-        this.#displayElement.textContent = '';
         this.#isOperatorActive = false;
+        this.#displayElement.textContent = '';
       }
 
       if (this.#displayElement.textContent.length < 10) {
@@ -34,7 +34,7 @@ class Calculator {
     };
 
     for (const element of Object.values(numBtns)) {
-      addEvent(element, 'click', callback);
+      addEvent(element, 'click', cb);
     }
   }
 
@@ -51,16 +51,16 @@ class Calculator {
       equals,
     } = getSpecialBtns();
 
-    const callback = (event) => {
+    const cb = (event) => {
       this.#firstOperand = this.#displayElement.textContent;
       this.#operator = event.target.textContent;
       this.#isOperatorActive = true;
     };
 
-    addEvent(addition, 'click', callback);
-    addEvent(subtraction, 'click', callback);
-    addEvent(multiplication, 'click', callback);
-    addEvent(division, 'click', callback);
+    addEvent(addition, 'click', cb);
+    addEvent(subtraction, 'click', cb);
+    addEvent(multiplication, 'click', cb);
+    addEvent(division, 'click', cb);
 
     addEvent(equals, 'click', () => {
       this.#displayElement.textContent = calculate(
