@@ -23,12 +23,11 @@ class Calculator {
     const numBtns = getNumBtns();
 
     const cb = (event) => {
-      if (this.#isOperatorActive) {
+      // If operator button is clicked or content of display is 0 -> replace display content with value of clicked button
+      if (this.#isOperatorActive || this.#displayElement.textContent === '0') {
         this.#isOperatorActive = false;
-        this.#displayElement.textContent = '';
-      }
-
-      if (this.#displayElement.textContent.length < 10) {
+        this.#displayElement.textContent = event.target.textContent;
+      } else if (this.#displayElement.textContent.length < 10) {
         this.#displayElement.textContent += event.target.textContent;
       }
     };
