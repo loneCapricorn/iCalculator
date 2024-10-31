@@ -30,5 +30,27 @@ export const removeEvent = (element, event, callback) => {
   if (element.removeEventListener) {
     return element.removeEventListener(event, callback);
   }
-  element.detachEvent(`on${event}`, callback);
+  return element.detachEvent(`on${event}`, callback);
+};
+
+/**
+ *
+ * @param {Number} firstOperand
+ * @param {String} operator - (+ | - | * | /)
+ * @param {Number} secondOperand
+ * @returns {Number}
+ */
+export const calculate = (firstOperand, operator, secondOperand) => {
+  switch (operator) {
+    case '+':
+      return firstOperand + secondOperand;
+    case '-':
+      return firstOperand - secondOperand;
+    case 'x':
+      return firstOperand * secondOperand;
+    case '÷':
+      return firstOperand / secondOperand;
+    default:
+      throw new Error('Invalid operator!');
+  }
 };
