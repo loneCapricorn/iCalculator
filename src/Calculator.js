@@ -63,10 +63,12 @@ class Calculator {
     addEvent(division, 'click', cb);
 
     addEvent(equals, 'click', () => {
+      this.#secondOperand = this.#displayElement.textContent;
+
       this.#displayElement.textContent = calculate(
         Number(this.#firstOperand),
         this.#operator,
-        Number(this.#displayElement.textContent)
+        Number(this.#secondOperand)
       );
     });
   }
