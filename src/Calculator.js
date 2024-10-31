@@ -67,6 +67,18 @@ class Calculator {
       }
     });
 
+    addEvent(percent, 'click', () => {
+      if (this.#firstOperand) {
+        this.#displayElement.textContent =
+          (Number(this.#firstOperand) *
+            Number(this.#displayElement.textContent)) /
+          100;
+      } else {
+        this.#displayElement.textContent =
+          this.#displayElement.textContent / 100;
+      }
+    });
+
     addEvent(plusMinus, 'click', () => {
       if (this.#displayElement.textContent[0] !== '-') {
         this.#displayElement.textContent =
