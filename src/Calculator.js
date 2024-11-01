@@ -99,13 +99,23 @@ class Calculator {
     });
 
     addEvent(equals, 'click', () => {
-      this.#secondOperand = this.#displayElement.textContent;
+      if (this.#isEqualsActive) {
+        this.#firstOperand = this.#displayElement.textContent;
 
-      this.#displayElement.textContent = calculate(
-        Number(this.#firstOperand),
-        this.#operator,
-        Number(this.#secondOperand)
-      );
+        this.#displayElement.textContent = calculate(
+          Number(this.#firstOperand),
+          this.#operator,
+          Number(this.#secondOperand)
+        );
+      } else {
+        this.#secondOperand = this.#displayElement.textContent;
+
+        this.#displayElement.textContent = calculate(
+          Number(this.#firstOperand),
+          this.#operator,
+          Number(this.#secondOperand)
+        );
+      }
 
       this.#isEqualsActive = true;
     });
