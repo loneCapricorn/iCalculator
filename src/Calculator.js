@@ -69,7 +69,9 @@ class Calculator {
     addEvent(division, 'click', cb);
 
     addEvent(dot, 'click', () => {
-      if (!this.#displayElement.textContent.includes('.')) {
+      if (this.#isEqualsActive) {
+        this.#displayElement.textContent = '0.';
+      } else if (!this.#displayElement.textContent.includes('.')) {
         this.#displayElement.textContent += '.';
       }
     });
