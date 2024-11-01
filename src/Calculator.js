@@ -22,12 +22,13 @@ class Calculator {
   }
 
   #attachListenersToNumBtns() {
-    const numBtns = getNumBtns();
+    const numBtns = getNumBtns(); // { zero: HTMLElement, one: HTMLElement, two: HTMLElement ... }
 
     const cb = (event) => {
+      // the reason for this check is to reset the display content if one of the following expressions is true
       if (
-        this.#isOperatorActive ||
         this.#isEqualsActive ||
+        this.#isOperatorActive ||
         this.#displayElement.textContent === '0'
       ) {
         this.#isEqualsActive = false;
@@ -38,12 +39,15 @@ class Calculator {
       }
     };
 
+    // attach event listeners to number buttons
     for (const element of Object.values(numBtns)) {
       addEvent(element, 'click', cb);
     }
   }
 
   #attachListenersToSpecialBtns() {
+    const specialBtns = getSpecialBtns(); // { clear: HTMLElement, plusMinus: HTMLElement, percent: HTMLElement ... }
+
     const {
       clear,
       plusMinus,
@@ -54,22 +58,27 @@ class Calculator {
       addition,
       dot,
       equals,
-    } = getSpecialBtns();
+    } = specialBtns;
 
     const cb = (event) => {
+      // when an operator is clicked, store the display content in the 'firstOperand' field and the operator type in the 'operator' field
       this.#firstOperand = this.#displayElement.textContent;
       this.#operator = event.target.textContent;
       this.#isOperatorActive = true;
       this.#isEqualsActive = false;
     };
 
+    // attach event listeners to operator buttons
     addEvent(addition, 'click', cb);
     addEvent(subtraction, 'click', cb);
     addEvent(multiplication, 'click', cb);
     addEvent(division, 'click', cb);
 
     addEvent(dot, 'click', () => {
-      if (this.#isEqualsActive) {
+      // the reason for this check is to reset the display content if one of the following expressions is true
+      if (this.#isEqualsActive || this.#isOperatorActive) {
+        this.#isEqualsActive = false;
+        this.#isOperatorActive = false;
         this.#displayElement.textContent = '0.';
       } else if (!this.#displayElement.textContent.includes('.')) {
         this.#displayElement.textContent += '.';
