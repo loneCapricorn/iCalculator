@@ -108,6 +108,9 @@ class Calculator {
     });
 
     addEvent(equals, 'click', () => {
+      // if operator is missing -> exit
+      if (!this.#operator) return;
+
       if (this.#isEqualsActive) {
         this.#firstOperand = this.#displayElement.textContent;
 
