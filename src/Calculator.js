@@ -11,6 +11,8 @@ class Calculator {
   #firstOperand;
   #operator;
   #secondOperand;
+
+  #isEqualsActive = false;
   #isOperatorActive = false;
 
   constructor() {
@@ -23,8 +25,12 @@ class Calculator {
     const numBtns = getNumBtns();
 
     const cb = (event) => {
-      // If operator button is clicked or content of display is 0 -> replace display content with value of clicked button
-      if (this.#isOperatorActive || this.#displayElement.textContent === '0') {
+      if (
+        this.#isOperatorActive ||
+        this.#isEqualsActive ||
+        this.#displayElement.textContent === '0'
+      ) {
+        this.#isEqualsActive = false;
         this.#isOperatorActive = false;
         this.#displayElement.textContent = event.target.textContent;
       } else if (this.#displayElement.textContent.length < 10) {
@@ -54,6 +60,7 @@ class Calculator {
       this.#firstOperand = this.#displayElement.textContent;
       this.#operator = event.target.textContent;
       this.#isOperatorActive = true;
+      this.#isEqualsActive = false;
     };
 
     addEvent(addition, 'click', cb);
@@ -75,7 +82,7 @@ class Calculator {
           100;
       } else {
         this.#displayElement.textContent =
-          this.#displayElement.textContent / 100;
+          Number(this.#displayElement.textContent) / 100;
       }
     });
 
@@ -97,6 +104,8 @@ class Calculator {
         this.#operator,
         Number(this.#secondOperand)
       );
+
+      this.#isEqualsActive = true;
     });
   }
 }
