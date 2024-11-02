@@ -128,6 +128,25 @@ class Calculator {
 
       this.#isEqualsActive = true;
     });
+
+    addEvent(this.#specialBtns.clear, 'click', (event) => {
+      switch (event.target.textContent) {
+        case 'C':
+          this.#displayElement.textContent = '0';
+          break;
+        case 'AC':
+          // reset everything
+          this.#displayElement.textContent = '0';
+
+          this.#firstOperand = null;
+          this.#operator = null;
+          this.#secondOperand = null;
+
+          this.#isEqualsActive = false;
+          this.#isOperatorActive = false;
+          break;
+      }
+    });
   }
 }
 
