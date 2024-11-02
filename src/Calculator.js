@@ -7,6 +7,8 @@ import {
 
 class Calculator {
   #displayElement;
+  #specialBtns;
+  #numBtns;
 
   #firstOperand;
   #operator;
@@ -17,13 +19,14 @@ class Calculator {
 
   constructor() {
     this.#displayElement = getDisplay();
+    this.#numBtns = getNumBtns(); // { zero: HTMLElement, one: HTMLElement, two: HTMLElement ... }
+    this.#specialBtns = getSpecialBtns(); // { clear: HTMLElement, plusMinus: HTMLElement, percent: HTMLElement ... }
+
     this.#attachListenersToNumBtns();
     this.#attachListenersToSpecialBtns();
   }
 
   #attachListenersToNumBtns() {
-    const numBtns = getNumBtns(); // { zero: HTMLElement, one: HTMLElement, two: HTMLElement ... }
-
     const cb = (event) => {
       // the reason for this check is to reset the display content if one of the following expressions is true
       if (
@@ -40,26 +43,12 @@ class Calculator {
     };
 
     // attach event listeners to number buttons
-    for (const element of Object.values(numBtns)) {
+    for (const element of Object.values(this.#numBtns)) {
       addEvent(element, 'click', cb);
     }
   }
 
   #attachListenersToSpecialBtns() {
-    const specialBtns = getSpecialBtns(); // { clear: HTMLElement, plusMinus: HTMLElement, percent: HTMLElement ... }
-
-    const {
-      clear,
-      plusMinus,
-      percent,
-      division,
-      multiplication,
-      subtraction,
-      addition,
-      dot,
-      equals,
-    } = specialBtns;
-
     const cb = (event) => {
       // when an operator is clicked, store the display content in the 'firstOperand' field and the operator type in the 'operator' field
       this.#firstOperand = this.#displayElement.textContent;
@@ -69,12 +58,12 @@ class Calculator {
     };
 
     // attach event listeners to operator buttons
-    addEvent(addition, 'click', cb);
-    addEvent(subtraction, 'click', cb);
-    addEvent(multiplication, 'click', cb);
-    addEvent(division, 'click', cb);
+    addEvent(this.#specialBtns.addition, 'click', cb);
+    addEvent(this.#specialBtns.subtraction, 'click', cb);
+    addEvent(this.#specialBtns.multiplication, 'click', cb);
+    addEvent(this.#specialBtns.division, 'click', cb);
 
-    addEvent(dot, 'click', () => {
+    addEvent(this.#specialBtns.dot, 'click', () => {
       // the reason for this check is to reset the display content if one of the following expressions is true
       if (this.#isEqualsActive || this.#isOperatorActive) {
         this.#isEqualsActive = false;
@@ -85,7 +74,7 @@ class Calculator {
       }
     });
 
-    addEvent(percent, 'click', () => {
+    addEvent(this.#specialBtns.percent, 'click', () => {
       if (this.#firstOperand) {
         this.#displayElement.textContent =
           (Number(this.#firstOperand) *
@@ -97,7 +86,7 @@ class Calculator {
       }
     });
 
-    addEvent(plusMinus, 'click', () => {
+    addEvent(this.#specialBtns.plusMinus, 'click', () => {
       if (this.#displayElement.textContent[0] !== '-') {
         this.#displayElement.textContent =
           '-' + this.#displayElement.textContent;
@@ -107,10 +96,11 @@ class Calculator {
       }
     });
 
-    addEvent(equals, 'click', () => {
+    addEvent(this.#specialBtns.equals, 'click', () => {
       // if operator is missing -> exit
       if (!this.#operator) return;
 
+      // the reason for this check is that if the equals button is clicked repeatedly, it stores the second operand and applies it to the result with the selected operator
       if (this.#isEqualsActive) {
         this.#firstOperand = this.#displayElement.textContent;
 
