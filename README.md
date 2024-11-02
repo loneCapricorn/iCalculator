@@ -4,11 +4,12 @@
 
 This is a simple clone of iPhone calculator. Here you can find general operations as `addition`, `division`, `multiplication`, `subtraction`.
 
-### Technologies used
+### Used technologies
 
 - HTML
 - CSS
 - JavaScript
+- Webpack
 
 ### Instalation
 
