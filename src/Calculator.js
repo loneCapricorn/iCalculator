@@ -75,14 +75,21 @@ class Calculator {
     });
 
     addEvent(this.#specialBtns.percent, 'click', () => {
-      if (this.#firstOperand) {
+      if (
+        this.#operator === 'x' ||
+        this.#operator === '÷' ||
+        this.#isEqualsActive ||
+        !this.#operator
+      ) {
+        // divide the display content by 100
+        this.#displayElement.textContent =
+          Number(this.#displayElement.textContent) / 100;
+      } else if (this.#operator === '+' || this.#operator === '-') {
+        // divide the display content by 100 and multiply it with the first operand
         this.#displayElement.textContent =
           (Number(this.#firstOperand) *
             Number(this.#displayElement.textContent)) /
           100;
-      } else {
-        this.#displayElement.textContent =
-          Number(this.#displayElement.textContent) / 100;
       }
     });
 
