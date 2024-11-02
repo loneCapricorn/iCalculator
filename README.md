@@ -8,7 +8,7 @@ This is a simple clone of iPhone calculator. Here you can find general operation
 
 - HTML
 - CSS
-- JavaScript
+- Vanilla JS
 - Webpack
 
 ### Instalation
