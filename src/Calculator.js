@@ -138,22 +138,19 @@ class Calculator {
     });
 
     addEvent(this.#specialBtns.clear, 'click', (event) => {
-      switch (event.target.textContent) {
-        case 'C':
-          this.#displayElement.textContent = '0';
-          this.#specialBtns.clear.textContent = 'AC';
-          break;
-        case 'AC':
-          // reset everything
-          this.#displayElement.textContent = '0';
+      if (event.target.textContent === 'AC' || this.#isEqualsActive) {
+        // reset everything
+        this.#displayElement.textContent = '0';
 
-          this.#firstOperand = null;
-          this.#operator = null;
-          this.#secondOperand = null;
+        this.#firstOperand = null;
+        this.#operator = null;
+        this.#secondOperand = null;
 
-          this.#isEqualsActive = false;
-          this.#isOperatorActive = false;
-          break;
+        this.#isEqualsActive = false;
+        this.#isOperatorActive = false;
+      } else if (event.target.textContent === 'C') {
+        this.#displayElement.textContent = '0';
+        this.#specialBtns.clear.textContent = 'AC';
       }
     });
   }
