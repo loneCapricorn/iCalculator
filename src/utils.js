@@ -49,7 +49,7 @@ export const calculate = (firstOperand, operator, secondOperand) => {
     case 'x':
       return firstOperand * secondOperand;
     case '÷':
-      return firstOperand / secondOperand;
+      return secondOperand === 0 ? 'Error' : firstOperand / secondOperand;
     default:
       throw new Error('Invalid operator!');
   }
