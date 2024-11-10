@@ -28,7 +28,7 @@ npm run build
 3. Start the application
 
 ```bash
-npm start
+npm run dev-server
 ```
 
 ## Developed by

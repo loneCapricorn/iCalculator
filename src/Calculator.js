@@ -26,6 +26,23 @@ class Calculator {
     this.#attachListenersToSpecialBtns();
   }
 
+  #focusOperator() {
+    switch (this.#operator) {
+      case '+':
+        this.#specialBtns.addition.focus();
+        break;
+      case '-':
+        this.#specialBtns.subtraction.focus();
+        break;
+      case 'x':
+        this.#specialBtns.multiplication.focus();
+        break;
+      case '÷':
+        this.#specialBtns.division.focus();
+        break;
+    }
+  }
+
   #attachListenersToNumBtns() {
     const cb = (event) => {
       // the reason for this check is to reset the display content if one of the following expressions is true
@@ -39,6 +56,10 @@ class Calculator {
         this.#displayElement.textContent = event.target.textContent;
       } else if (this.#displayElement.textContent.length < 10) {
         this.#displayElement.textContent += event.target.textContent;
+      }
+
+      if (this.#specialBtns.clear.textContent !== 'C') {
+        this.#specialBtns.clear.textContent = 'C';
       }
     };
 
@@ -71,6 +92,10 @@ class Calculator {
         this.#displayElement.textContent = '0.';
       } else if (!this.#displayElement.textContent.includes('.')) {
         this.#displayElement.textContent += '.';
+      }
+
+      if (this.#specialBtns.clear.textContent !== 'C') {
+        this.#specialBtns.clear.textContent = 'C';
       }
     });
 
@@ -130,21 +155,20 @@ class Calculator {
     });
 
     addEvent(this.#specialBtns.clear, 'click', (event) => {
-      switch (event.target.textContent) {
-        case 'C':
-          this.#displayElement.textContent = '0';
-          break;
-        case 'AC':
-          // reset everything
-          this.#displayElement.textContent = '0';
+      if (event.target.textContent === 'AC' || this.#isEqualsActive) {
+        // reset everything
+        this.#displayElement.textContent = '0';
 
-          this.#firstOperand = null;
-          this.#operator = null;
-          this.#secondOperand = null;
+        this.#firstOperand = null;
+        this.#operator = null;
+        this.#secondOperand = null;
 
-          this.#isEqualsActive = false;
-          this.#isOperatorActive = false;
-          break;
+        this.#isEqualsActive = false;
+        this.#isOperatorActive = false;
+      } else if (event.target.textContent === 'C') {
+        this.#displayElement.textContent = '0';
+        this.#specialBtns.clear.textContent = 'AC';
+        this.#focusOperator();
       }
     });
   }
