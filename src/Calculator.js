@@ -26,6 +26,23 @@ class Calculator {
     this.#attachListenersToSpecialBtns();
   }
 
+  #focusOperator() {
+    switch (this.#operator) {
+      case '+':
+        this.#specialBtns.addition.focus();
+        break;
+      case '-':
+        this.#specialBtns.subtraction.focus();
+        break;
+      case 'x':
+        this.#specialBtns.multiplication.focus();
+        break;
+      case '÷':
+        this.#specialBtns.division.focus();
+        break;
+    }
+  }
+
   #attachListenersToNumBtns() {
     const cb = (event) => {
       // the reason for this check is to reset the display content if one of the following expressions is true
@@ -151,6 +168,7 @@ class Calculator {
       } else if (event.target.textContent === 'C') {
         this.#displayElement.textContent = '0';
         this.#specialBtns.clear.textContent = 'AC';
+        this.#focusOperator();
       }
     });
   }
