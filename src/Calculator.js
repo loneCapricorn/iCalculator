@@ -40,6 +40,10 @@ class Calculator {
       } else if (this.#displayElement.textContent.length < 10) {
         this.#displayElement.textContent += event.target.textContent;
       }
+
+      if (this.#specialBtns.clear.textContent !== 'C') {
+        this.#specialBtns.clear.textContent = 'C';
+      }
     };
 
     // attach event listeners to number buttons
@@ -71,6 +75,10 @@ class Calculator {
         this.#displayElement.textContent = '0.';
       } else if (!this.#displayElement.textContent.includes('.')) {
         this.#displayElement.textContent += '.';
+      }
+
+      if (this.#specialBtns.clear.textContent !== 'C') {
+        this.#specialBtns.clear.textContent = 'C';
       }
     });
 
@@ -133,6 +141,7 @@ class Calculator {
       switch (event.target.textContent) {
         case 'C':
           this.#displayElement.textContent = '0';
+          this.#specialBtns.clear.textContent = 'AC';
           break;
         case 'AC':
           // reset everything
