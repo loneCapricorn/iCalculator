@@ -2,34 +2,34 @@
 
 ### Description
 
-This is a simple clone of iPhone calculator. Here you can find general operations as `addition`, `division`, `multiplication`, `subtraction`.
+This is a simple clone of the iPhone calculator. It supports general operations such as `addition`, `division`, `multiplication`, and `subtraction`.
 
-### Used technologies
+### Technologies Used
 
 - HTML
 - CSS
 - Vanilla JS
 - Webpack
 
-### Instalation
+### Installation
 
-1. Install the packages
+1. Install the packages:
 
-```bash
-npm install
-```
+   ```bash
+   npm install
+   ```
 
-2. Build
+2. Build the project:
 
-```bash
-npm run build
-```
+   ```bash
+   npm run build
+   ```
 
-3. Start the application
+3. Start the application:
 
-```bash
-npm run dev-server
-```
+   ```bash
+   npm run dev-server
+   ```
 
 ## Developed by
 
