@@ -1,4 +1,5 @@
 import { addEvent, calculate } from './utils.js';
+import { CLICK_EVENT } from './constants/index.js';
 import {
   getDisplay,
   getNumBtns,
@@ -46,26 +47,19 @@ class Calculator {
   #attachListenersToNumBtns() {
     const cb = (event) => {
       // the reason for this check is to reset the display content if one of the following expressions is true
-      if (
-        this.#isEqualsActive ||
-        this.#isOperatorActive ||
-        this.#displayElement.textContent === '0'
-      ) {
+      if (this.#isEqualsActive || this.#isOperatorActive || this.#displayElement.textContent === '0') {
         this.#isEqualsActive = false;
         this.#isOperatorActive = false;
+        this.#specialBtns.clear.textContent = 'C';
         this.#displayElement.textContent = event.target.textContent;
       } else if (this.#displayElement.textContent.length < 10) {
         this.#displayElement.textContent += event.target.textContent;
-      }
-
-      if (this.#specialBtns.clear.textContent !== 'C') {
-        this.#specialBtns.clear.textContent = 'C';
       }
     };
 
     // attach event listeners to number buttons
     for (const element of Object.values(this.#numBtns)) {
-      addEvent(element, 'click', cb);
+      addEvent(element, CLICK_EVENT, cb);
     }
   }
 
@@ -79,12 +73,12 @@ class Calculator {
     };
 
     // attach event listeners to operator buttons
-    addEvent(this.#specialBtns.addition, 'click', cb);
-    addEvent(this.#specialBtns.subtraction, 'click', cb);
-    addEvent(this.#specialBtns.multiplication, 'click', cb);
-    addEvent(this.#specialBtns.division, 'click', cb);
+    addEvent(this.#specialBtns.addition, CLICK_EVENT, cb);
+    addEvent(this.#specialBtns.subtraction, CLICK_EVENT, cb);
+    addEvent(this.#specialBtns.multiplication, CLICK_EVENT, cb);
+    addEvent(this.#specialBtns.division, CLICK_EVENT, cb);
 
-    addEvent(this.#specialBtns.dot, 'click', () => {
+    addEvent(this.#specialBtns.dot, CLICK_EVENT, () => {
       // the reason for this check is to reset the display content if one of the following expressions is true
       if (this.#isEqualsActive || this.#isOperatorActive) {
         this.#isEqualsActive = false;
@@ -99,7 +93,7 @@ class Calculator {
       }
     });
 
-    addEvent(this.#specialBtns.percent, 'click', () => {
+    addEvent(this.#specialBtns.percent, CLICK_EVENT, () => {
       if (
         this.#operator === 'x' ||
         this.#operator === '÷' ||
@@ -118,7 +112,7 @@ class Calculator {
       }
     });
 
-    addEvent(this.#specialBtns.plusMinus, 'click', () => {
+    addEvent(this.#specialBtns.plusMinus, CLICK_EVENT, () => {
       if (this.#displayElement.textContent[0] !== '-') {
         this.#displayElement.textContent =
           '-' + this.#displayElement.textContent;
@@ -128,7 +122,7 @@ class Calculator {
       }
     });
 
-    addEvent(this.#specialBtns.equals, 'click', () => {
+    addEvent(this.#specialBtns.equals, CLICK_EVENT, () => {
       // if operator is missing -> exit
       if (!this.#operator) return;
 
@@ -154,7 +148,7 @@ class Calculator {
       this.#isEqualsActive = true;
     });
 
-    addEvent(this.#specialBtns.clear, 'click', (event) => {
+    addEvent(this.#specialBtns.clear, CLICK_EVENT, (event) => {
       if (event.target.textContent === 'AC' || this.#isEqualsActive) {
         // reset everything
         this.#displayElement.textContent = '0';
@@ -165,6 +159,8 @@ class Calculator {
 
         this.#isEqualsActive = false;
         this.#isOperatorActive = false;
+
+        this.#specialBtns.clear.textContent = 'AC';
       } else if (event.target.textContent === 'C') {
         this.#displayElement.textContent = '0';
         this.#specialBtns.clear.textContent = 'AC';

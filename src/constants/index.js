@@ -24,3 +24,5 @@ export const SPECIAL_BTNS_IDS = [
 ];
 
 export const DISPLAY_ID = 'display';
+export const CLICK_EVENT = 'click';
+
