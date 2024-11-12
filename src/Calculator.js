@@ -47,20 +47,13 @@ class Calculator {
   #attachListenersToNumBtns() {
     const cb = (event) => {
       // the reason for this check is to reset the display content if one of the following expressions is true
-      if (
-        this.#isEqualsActive ||
-        this.#isOperatorActive ||
-        this.#displayElement.textContent === '0'
-      ) {
+      if (this.#isEqualsActive || this.#isOperatorActive || this.#displayElement.textContent === '0') {
         this.#isEqualsActive = false;
         this.#isOperatorActive = false;
+        this.#specialBtns.clear.textContent = 'C';
         this.#displayElement.textContent = event.target.textContent;
       } else if (this.#displayElement.textContent.length < 10) {
         this.#displayElement.textContent += event.target.textContent;
-      }
-
-      if (this.#specialBtns.clear.textContent !== 'C') {
-        this.#specialBtns.clear.textContent = 'C';
       }
     };
 
@@ -166,6 +159,8 @@ class Calculator {
 
         this.#isEqualsActive = false;
         this.#isOperatorActive = false;
+
+        this.#specialBtns.clear.textContent = 'AC';
       } else if (event.target.textContent === 'C') {
         this.#displayElement.textContent = '0';
         this.#specialBtns.clear.textContent = 'AC';
