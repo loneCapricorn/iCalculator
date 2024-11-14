@@ -1,3 +1,14 @@
+export const CLICK_EVENT = 'click';
+
+export const OPERATOR_SIGNS = {
+  addition: '+',
+  subtraction: '-',
+  multiplication: 'x',
+  division: '÷',
+};
+
+export const DISPLAY_ID = 'display';
+
 export const NUMBER_BTNS_IDS = [
   'zero',
   'one',
@@ -22,7 +33,3 @@ export const SPECIAL_BTNS_IDS = [
   'dot',
   'equals',
 ];
-
-export const DISPLAY_ID = 'display';
-export const CLICK_EVENT = 'click';
-
