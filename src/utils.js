@@ -1,64 +1,58 @@
 import { OPERATOR_SIGNS } from './constants/index.js';
 
 /**
+ * Retrieves an element from the DOM by its ID.
  *
- * @param {String} id
- * @returns {HTMLElement | null}
+ * @param {string} id - The ID of the element to retrieve.
+ * @returns {HTMLElement | null} The element with the specified ID, or null if no such element exists.
  */
 export const getElementById = (id) => document.getElementById(id);
 
 /**
+ * Retrieves the key of the given value from an object.
  *
- * @param {HTMLElement} element
- * @param {Event} event
- * @param {Function} callback
- * @returns
+ * @param {Object} obj - The object to search through.
+ * @param {*} val - The value to find the corresponding key for.
+ * @returns {string|undefined} - The key associated with the given value, or undefined if not found.
+ */
+export const getKeyByValue = (obj, val) => Object.keys(obj).find((key) => obj[key] === val);
+
+/**
+ * Adds an event listener to a specified element.
+ *
+ * @param {Element} element - The DOM element to which the event listener will be added.
+ * @param {string} event - The event type to listen for (e.g., 'click', 'mouseover').
+ * @param {Function} callback - The function to be called when the event is triggered.
  */
 export const addEvent = (element, event, callback) => {
   if (element.addEventListener) {
-    return element.addEventListener(event, callback);
+    element.addEventListener(event, callback);
   }
-  return element.attachEvent(`on${event}`, callback);
+  element.attachEvent(`on${event}`, callback);
 };
 
 /**
+ * Removes an event listener from a specified element.
  *
- * @param {HTMLElement} element
- * @param {Event} event
- * @param {Function} callback
- * @returns
+ * @param {Element} element - The DOM element from which the event listener will be removed.
+ * @param {string} event - The event type to remove (e.g., 'click', 'mouseover').
+ * @param {Function} callback - The callback function that was originally added as the event listener.
  */
 export const removeEvent = (element, event, callback) => {
   if (element.removeEventListener) {
-    return element.removeEventListener(event, callback);
+    element.removeEventListener(event, callback);
   }
-  return element.detachEvent(`on${event}`, callback);
+  element.detachEvent(`on${event}`, callback);
 };
 
 /**
- * Converts an object into a symmetrical enum.
- * @param {Object} object - The object to convert into a symmetrical enum.
- * @returns {Object}
- */
-export const makeSymmetricalEnum = (obj) => {
-  const newObj = JSON.parse(JSON.stringify(obj));
-
-  Object.keys(newObj).forEach((key) => {
-    Object.defineProperty(newObj, newObj[key], {
-      value: key,
-      enumerable: false,
-    });
-  });
-
-  return Object.freeze(newObj);
-};
-
-/**
+ * Performs a calculation based on the provided operands and operator.
  *
- * @param {Number} firstOperand
- * @param {String} operator - (+ | - | * | /)
- * @param {Number} secondOperand
- * @returns {Number}
+ * @param {number} firstOperand - The first operand in the calculation.
+ * @param {string} operator - The operator to apply. Must be one of the values in OPERATOR_SIGNS.
+ * @param {number} secondOperand - The second operand in the calculation.
+ * @returns {number|string} The result of the calculation, or 'Error' if division by zero is attempted.
+ * @throws {Error} If an invalid operator is provided.
  */
 export const calculate = (firstOperand, operator, secondOperand) => {
   switch (operator) {
