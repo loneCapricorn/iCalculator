@@ -1,3 +1,5 @@
+import { OPERATOR_SIGNS } from './constants/index.js';
+
 /**
  *
  * @param {String} id
@@ -34,6 +36,24 @@ export const removeEvent = (element, event, callback) => {
 };
 
 /**
+ * Converts an object into a symmetrical enum.
+ * @param {Object} object - The object to convert into a symmetrical enum.
+ * @returns {Object}
+ */
+export const makeSymmetricalEnum = (object) => {
+  const newObj = JSON.parse(JSON.stringify(object));
+
+  Object.keys(newObj).forEach((key) => {
+    Object.defineProperty(newObj, newObj[key], {
+      value: key,
+      enumerable: false,
+    });
+  });
+
+  return newObj;
+};
+
+/**
  *
  * @param {Number} firstOperand
  * @param {String} operator - (+ | - | * | /)
@@ -42,13 +62,13 @@ export const removeEvent = (element, event, callback) => {
  */
 export const calculate = (firstOperand, operator, secondOperand) => {
   switch (operator) {
-    case '+':
+    case OPERATOR_SIGNS.addition:
       return firstOperand + secondOperand;
-    case '-':
+    case OPERATOR_SIGNS.subtraction:
       return firstOperand - secondOperand;
-    case 'x':
+    case OPERATOR_SIGNS.multiplication:
       return firstOperand * secondOperand;
-    case '÷':
+    case OPERATOR_SIGNS.division:
       return secondOperand === 0 ? 'Error' : firstOperand / secondOperand;
     default:
       throw new Error('Invalid operator!');
