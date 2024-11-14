@@ -6,14 +6,16 @@ import {
 import { getElementById } from '../utils.js';
 
 /**
+ * Retrieves the display element by its ID.
  *
- * @returns {HTMLElement} - div element with id "display".
+ * @returns {HTMLElement} The display element.
  */
 export const getDisplay = () => getElementById(DISPLAY_ID);
 
 /**
+ * Retrieves number button elements by their IDs and returns them in a frozen object.
  *
- * @returns {Object}
+ * @returns {Object} An object containing the number button elements, with their IDs as keys.
  */
 export const getNumBtns = () => {
   const output = {};
@@ -26,8 +28,9 @@ export const getNumBtns = () => {
 };
 
 /**
+ * Retrieves special button elements by their IDs and returns them in a frozen object.
  *
- * @returns {Object}
+ * @returns {Object} An object containing the special button elements, with their IDs as keys.
  */
 export const getSpecialBtns = () => {
   const output = {};
