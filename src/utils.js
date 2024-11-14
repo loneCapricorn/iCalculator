@@ -40,8 +40,8 @@ export const removeEvent = (element, event, callback) => {
  * @param {Object} object - The object to convert into a symmetrical enum.
  * @returns {Object}
  */
-export const makeSymmetricalEnum = (object) => {
-  const newObj = JSON.parse(JSON.stringify(object));
+export const makeSymmetricalEnum = (obj) => {
+  const newObj = JSON.parse(JSON.stringify(obj));
 
   Object.keys(newObj).forEach((key) => {
     Object.defineProperty(newObj, newObj[key], {
@@ -50,7 +50,7 @@ export const makeSymmetricalEnum = (object) => {
     });
   });
 
-  return newObj;
+  return Object.freeze(newObj);
 };
 
 /**
