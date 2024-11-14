@@ -27,8 +27,9 @@ export const getKeyByValue = (obj, val) => Object.keys(obj).find((key) => obj[ke
 export const addEvent = (element, event, callback) => {
   if (element.addEventListener) {
     element.addEventListener(event, callback);
+  } else {
+    element.attachEvent(`on${event}`, callback);
   }
-  element.attachEvent(`on${event}`, callback);
 };
 
 /**
@@ -41,8 +42,9 @@ export const addEvent = (element, event, callback) => {
 export const removeEvent = (element, event, callback) => {
   if (element.removeEventListener) {
     element.removeEventListener(event, callback);
+  } else {
+    element.detachEvent(`on${event}`, callback);
   }
-  element.detachEvent(`on${event}`, callback);
 };
 
 /**
