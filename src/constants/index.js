@@ -1,6 +1,6 @@
 export const CLICK_EVENT = 'click';
 
-export const OPERATOR_SIGNS = {
+export const OPERATOR_TO_SIGN_PAIRS = {
   addition: '+',
   subtraction: '-',
   multiplication: 'x',

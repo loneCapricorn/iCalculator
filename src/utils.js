@@ -1,4 +1,4 @@
-import { OPERATOR_SIGNS } from './constants/index.js';
+import { OPERATOR_TO_SIGN_PAIRS } from './constants/index.js';
 
 /**
  * Retrieves an element from the DOM by its ID.
@@ -58,13 +58,13 @@ export const removeEvent = (element, event, callback) => {
  */
 export const calculate = (firstOperand, operator, secondOperand) => {
   switch (operator) {
-    case OPERATOR_SIGNS.addition:
+    case OPERATOR_TO_SIGN_PAIRS.addition:
       return firstOperand + secondOperand;
-    case OPERATOR_SIGNS.subtraction:
+    case OPERATOR_TO_SIGN_PAIRS.subtraction:
       return firstOperand - secondOperand;
-    case OPERATOR_SIGNS.multiplication:
+    case OPERATOR_TO_SIGN_PAIRS.multiplication:
       return firstOperand * secondOperand;
-    case OPERATOR_SIGNS.division:
+    case OPERATOR_TO_SIGN_PAIRS.division:
       return secondOperand === 0 ? 'Error' : firstOperand / secondOperand;
     default:
       throw new Error('Invalid operator!');
