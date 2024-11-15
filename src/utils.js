@@ -13,7 +13,7 @@ export const getElementById = (id) => document.getElementById(id);
  *
  * @param {Object} obj - The object to search through.
  * @param {*} val - The value to find the corresponding key for.
- * @returns {string|undefined} - The key associated with the given value, or undefined if not found.
+ * @returns {string | undefined} - The key associated with the given value, or undefined if not found.
  */
 export const getKeyByValue = (obj, val) => Object.keys(obj).find((key) => obj[key] === val);
 
@@ -53,7 +53,7 @@ export const removeEvent = (element, event, callback) => {
  * @param {number} firstOperand - The first operand in the calculation.
  * @param {string} operator - The operator to apply. Must be one of the values in OPERATOR_SIGNS.
  * @param {number} secondOperand - The second operand in the calculation.
- * @returns {number|string} The result of the calculation, or 'Error' if division by zero is attempted.
+ * @returns {number | string} The result of the calculation, or 'Error' if division by zero is attempted.
  * @throws {Error} If an invalid operator is provided.
  */
 export const calculate = (firstOperand, operator, secondOperand) => {
