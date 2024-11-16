@@ -15,7 +15,11 @@ class Calculator {
   #operator;
   #secondOperand;
 
+  // this field is mainly used to reset the display content
+  // it is also utilized in percent and equals logic
   #isEqualsActive = false;
+
+  // this field is used to reset the display content
   #isOperatorActive = false;
 
   constructor() {
@@ -29,6 +33,7 @@ class Calculator {
 
   #focusActiveOperatorBtn() {
     const activeOperator = getKeyByValue(OPERATOR_TO_SIGN_PAIRS, this.#operator);
+    // gets the HTMLElement from specialBtns with the key activeOperator and focuses on it
     this.#specialBtns[activeOperator].focus();
   }
 
@@ -44,6 +49,7 @@ class Calculator {
       }
     };
 
+    // attach event listeners to number buttons
     for (const element of Object.values(this.#numBtns)) {
       addEvent(element, CLICK_EVENT, cb);
     }
@@ -82,7 +88,8 @@ class Calculator {
         !this.#operator
       ) {
         this.#displayElement.textContent = Number(this.#displayElement.textContent) / 100;
-      } else if (this.#operator === OPERATOR_TO_SIGN_PAIRS.addition || this.#operator === OPERATOR_TO_SIGN_PAIRS.subtraction) {
+      } else {
+        // handle cases when operator is '+' or '-'
         this.#displayElement.textContent = (Number(this.#firstOperand) * Number(this.#displayElement.textContent)) / 100;
       }
     });
@@ -96,6 +103,7 @@ class Calculator {
     });
 
     addEvent(this.#specialBtns.equals, CLICK_EVENT, () => {
+      // if operator is missing -> exit
       if (!this.#operator) return;
 
       // the reason for this check is that if the equals button is clicked repeatedly, it stores the second operand and applies it to the result with the selected operator
