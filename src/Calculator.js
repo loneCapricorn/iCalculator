@@ -29,10 +29,7 @@ class Calculator {
 
   #focusActiveOperatorBtn() {
     const activeOperator = getKeyByValue(OPERATOR_TO_SIGN_PAIRS, this.#operator);
-
-    if (activeOperator) {
-      this.#specialBtns[activeOperator].focus();
-    }
+    this.#specialBtns[activeOperator].focus();
   }
 
   #attachListenersToNumBtns() {
@@ -74,9 +71,7 @@ class Calculator {
         this.#displayElement.textContent += '.';
       }
 
-      if (this.#specialBtns.clear.textContent !== 'C') {
-        this.#specialBtns.clear.textContent = 'C';
-      }
+      this.#specialBtns.clear.textContent = 'C';
     });
 
     addEvent(this.#specialBtns.percent, CLICK_EVENT, () => {
@@ -106,21 +101,15 @@ class Calculator {
       // the reason for this check is that if the equals button is clicked repeatedly, it stores the second operand and applies it to the result with the selected operator
       if (this.#isEqualsActive) {
         this.#firstOperand = this.#displayElement.textContent;
-
-        this.#displayElement.textContent = calculate(
-          Number(this.#firstOperand),
-          this.#operator,
-          Number(this.#secondOperand)
-        );
       } else {
         this.#secondOperand = this.#displayElement.textContent;
-
-        this.#displayElement.textContent = calculate(
-          Number(this.#firstOperand),
-          this.#operator,
-          Number(this.#secondOperand)
-        );
       }
+
+      this.#displayElement.textContent = calculate(
+        Number(this.#firstOperand),
+        this.#operator,
+        Number(this.#secondOperand)
+      );
 
       this.#isEqualsActive = true;
     });
@@ -140,7 +129,8 @@ class Calculator {
       } else if (event.target.textContent === 'C') {
         this.#displayElement.textContent = '0';
         this.#specialBtns.clear.textContent = 'AC';
-        this.#focusActiveOperatorBtn();
+
+        if (this.#operator) this.#focusActiveOperatorBtn();
       }
     });
   }
