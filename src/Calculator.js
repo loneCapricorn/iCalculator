@@ -33,7 +33,7 @@ class Calculator {
 
   #focusActiveOperatorBtn() {
     const activeOperator = getKeyByValue(OPERATOR_TO_SIGN_PAIRS, this.#operator);
-    // gets the HTMLElement from specialBtns with the key activeOperator and focuses on it
+    // gets the HTMLElement from specialBtns with the key activeOperator and focuses it
     this.#specialBtns[activeOperator].focus();
   }
 
