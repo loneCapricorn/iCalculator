@@ -44,7 +44,7 @@ class Calculator {
         this.#isOperatorActive = false;
         this.#specialBtns.clear.textContent = 'C';
         this.#displayElement.textContent = event.target.textContent;
-      } else if (this.#displayElement.textContent.length < 10) {
+      } else if (this.#displayElement.textContent.length < 9) {
         this.#displayElement.textContent += event.target.textContent;
       }
     };
