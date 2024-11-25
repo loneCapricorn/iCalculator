@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="./src/styles/index.css" rel="stylesheet" />
-    <title>Simple Calculator</title>
+    <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body class="max-container">
     <div id="main-container" class="absolute-position-center">
@@ -33,6 +32,5 @@
         <div id="equals" class="btn">=</div>
       </div>
     </div>
-    <script src="./dist/bundle.js"></script>
   </body>
 </html>
