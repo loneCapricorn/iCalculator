@@ -70,9 +70,9 @@ const formatNumber = (num) => {
     }
 
     return firstPart + 'e' + secondPart;
-  } else {
-    return parsedNum.toString();
   }
+
+  return parsedNum.toString();
 };
 
 /**
