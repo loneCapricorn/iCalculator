@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = (env, argv) => {
   const wpMode = argv.mode ?? 'development';
 
-  return {
+  const config = {
     mode: wpMode,
     entry: {
       bundle: path.resolve(__dirname, 'src/index.js'),
@@ -50,4 +50,6 @@ module.exports = (env, argv) => {
       }),
     ],
   };
+
+  return config;
 };
