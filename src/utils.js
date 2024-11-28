@@ -1,4 +1,4 @@
-import { OPERATOR_TO_SIGN_PAIRS } from './constants/index.js';
+import { OPERATOR_TO_SIGN_PAIRS, ERROR } from './constants/index.js';
 
 /**
  * Retrieves an element from the DOM by its ID.
@@ -48,25 +48,67 @@ export const removeEvent = (element, event, callback) => {
 };
 
 /**
+ * Formats a number by removing trailing zeros and rounding to a reasonable precision (up to 9 decimals).
+ * If the result is large enough (i.e., >= 1e9), it uses exponential notation.
+ *
+ * @param {number} num - The number to format.
+ * @returns {string} - The formatted number.
+ */
+const formatNumber = (num) => {
+  // remove trailing zeros
+  const parsedNum = parseFloat(num.toFixed(9));
+
+  if (Math.abs(parsedNum) >= 1e9) {
+    let [firstPart, secondPart] = parsedNum.toExponential(5).split('e+');
+
+    for (let i = firstPart.length - 1; i >= 0; i--) {
+      if (firstPart.charAt(i) === '0') { // if the last char is '0'
+        firstPart = firstPart.slice(0, i); // remove it
+      } else {
+        break;
+      }
+    }
+
+    return firstPart + 'e' + secondPart;
+  } else {
+    return parsedNum.toString();
+  }
+};
+
+/**
  * Performs a calculation based on the provided operands and operator.
  *
  * @param {number} firstOperand - The first operand in the calculation.
  * @param {string} operator - The operator to apply. Must be one of the values in OPERATOR_SIGNS.
  * @param {number} secondOperand - The second operand in the calculation.
- * @returns {number | string} The result of the calculation, or 'Error' if division by zero is attempted.
+ * @returns {string} The result of the calculation, or 'Error'.
  * @throws {Error} If an invalid operator is provided.
  */
 export const calculate = (firstOperand, operator, secondOperand) => {
+  let result;
+
+  // perform the calculation based on the operator
   switch (operator) {
     case OPERATOR_TO_SIGN_PAIRS.addition:
-      return firstOperand + secondOperand;
+      result = firstOperand + secondOperand;
+      break;
     case OPERATOR_TO_SIGN_PAIRS.subtraction:
-      return firstOperand - secondOperand;
+      result = firstOperand - secondOperand;
+      break;
     case OPERATOR_TO_SIGN_PAIRS.multiplication:
-      return firstOperand * secondOperand;
+      result = firstOperand * secondOperand;
+      break;
     case OPERATOR_TO_SIGN_PAIRS.division:
-      return secondOperand === 0 ? 'Error' : firstOperand / secondOperand;
+      result = secondOperand !== 0 ? firstOperand / secondOperand : ERROR;
+      break;
     default:
       throw new Error('Invalid operator!');
   }
+
+  // handle division by zero or invalid result
+  if (result === ERROR || result === Infinity || result === -Infinity) {
+    return ERROR;
+  }
+
+  return formatNumber(result);
 };
