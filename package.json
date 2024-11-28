@@ -1,12 +1,14 @@
 {
   "name": "icalculator",
   "version": "1.0.0",
-  "description": "iPhone calculator",
+  "description": "iCalculator is a simple clone of the calculator from iOS v17.5.1",
+  "main": "src/index.js",
   "author": "Mehmed Yunuz <yyunuzmehmed@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack",
-    "dev-server": "webpack serve"
+    "build": "webpack --mode=production",
+    "build-dev": "webpack --mode=development",
+    "dev-server": "webpack serve --mode=development"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
