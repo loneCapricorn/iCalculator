@@ -1,4 +1,5 @@
 export const CLICK_EVENT = 'click';
+export const ERROR = 'Error';
 
 export const OPERATOR_TO_SIGN_PAIRS = {
   addition: '+',
