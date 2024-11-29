@@ -55,11 +55,8 @@ export const removeEvent = (element, event, callback) => {
  * @returns {string} - The formatted number.
  */
 const formatNumber = (num) => {
-  // remove trailing zeros
-  const parsedNum = parseFloat(num.toFixed(9));
-
-  if (Math.abs(parsedNum) >= 1e9) {
-    let [firstPart, secondPart] = parsedNum.toExponential(5).split('e+');
+  if (Math.abs(num) >= 1e9) {
+    let [firstPart, secondPart] = num.toExponential(5).split('e+');
 
     for (let i = firstPart.length - 1; i >= 0; i--) {
       if (firstPart.charAt(i) === '0') { // if the last char is '0'
@@ -72,7 +69,20 @@ const formatNumber = (num) => {
     return firstPart + 'e' + secondPart;
   }
 
-  return parsedNum.toString();
+  const numAsStr = num.toString();
+
+  // handle numbers with large decimal parts i.e. 333333332.6666667
+  if (numAsStr.length > 10) {
+    const intPartLength = numAsStr.split('.')[0].length;
+
+    // the whole number length should be up to 9 digits
+    const decPartLength = 9 - intPartLength;
+
+    // parseFloat removes trailing zeros i.e. 22.4000000, 0.30000000 ...
+    return parseFloat(num.toFixed(decPartLength)).toString();
+  }
+
+  return numAsStr;
 };
 
 /**
