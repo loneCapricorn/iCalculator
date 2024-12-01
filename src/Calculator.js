@@ -1,5 +1,5 @@
 import { addEvent, calculate, getKeyByValue } from './utils.js';
-import { CLICK_EVENT, OPERATOR_TO_SIGN_PAIRS } from './constants/index.js';
+import { CLICK_EVENT, OPERATOR_TO_SIGN_PAIRS, ERROR } from './constants/index.js';
 import {
   getDisplay,
   getNumBtns,
@@ -57,6 +57,8 @@ class Calculator {
 
   #attachListenersToSpecialBtns() {
     const cb = (event) => {
+      if (this.#displayElement.textContent === ERROR) return;
+
       this.#firstOperand = this.#displayElement.textContent;
       this.#operator = event.target.textContent;
       this.#isOperatorActive = true;
@@ -81,6 +83,8 @@ class Calculator {
     });
 
     addEvent(this.#specialBtns.percent, CLICK_EVENT, () => {
+      if (this.#displayElement.textContent === ERROR) return;
+
       if (
         this.#operator === OPERATOR_TO_SIGN_PAIRS.multiplication ||
         this.#operator === OPERATOR_TO_SIGN_PAIRS.division ||
@@ -95,6 +99,8 @@ class Calculator {
     });
 
     addEvent(this.#specialBtns.plusMinus, CLICK_EVENT, () => {
+      if (this.#displayElement.textContent === ERROR) return;
+
       if (this.#displayElement.textContent[0] !== OPERATOR_TO_SIGN_PAIRS.subtraction) {
         this.#displayElement.textContent = OPERATOR_TO_SIGN_PAIRS.subtraction + this.#displayElement.textContent;
       } else {
@@ -103,8 +109,8 @@ class Calculator {
     });
 
     addEvent(this.#specialBtns.equals, CLICK_EVENT, () => {
-      // if operator is missing -> exit
-      if (!this.#operator) return;
+      // if operator is missing or Error occurs -> exit
+      if (!this.#operator || (this.#displayElement.textContent === ERROR)) return;
 
       // the reason for this check is that if the equals button is clicked repeatedly, it stores the second operand and applies it to the result with the selected operator
       if (this.#isEqualsActive) {
