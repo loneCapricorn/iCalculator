@@ -13,6 +13,13 @@ import { getElementById } from '../utils.js';
 export const getDisplay = () => getElementById(DISPLAY_ID);
 
 /**
+ * Retrieves the HTML element by its ID.
+ *
+ * @returns {HTMLElement} The time element.
+ */
+export const getCurrentTime = () => getElementById(CURRENT_TIME_ID);
+
+/**
  * Retrieves number button elements by their IDs and returns them in a frozen object.
  *
  * @returns {Object} An object containing the number button elements, with their IDs as keys.
