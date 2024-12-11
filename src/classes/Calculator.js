@@ -1,11 +1,6 @@
-import { addEvent, calculate, getKeyByValue } from './utils.js';
-import { CLICK_EVENT, OPERATOR_TO_SIGN_PAIRS, ERROR, INTERVAL_TIME_IN_MS } from './constants/index.js';
-import {
-  getDisplay,
-  getCurrentTime,
-  getNumBtns,
-  getSpecialBtns,
-} from './services/getHTMLElements.js';
+import { addEvent, calculate, getKeyByValue } from '../utils.js';
+import { CLICK_EVENT, OPERATOR_TO_SIGN_PAIRS, ERROR, INTERVAL_TIME_IN_MS } from '../common/constants.js';
+import { getDisplay, getCurrentTime, getNumBtns, getSpecialBtns } from '../services/getHTMLElements.js';
 
 class Calculator {
   #displayElement; // HTMLElement

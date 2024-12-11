@@ -1,4 +1,4 @@
-import { OPERATOR_TO_SIGN_PAIRS, ERROR } from './constants/index.js';
+import { OPERATOR_TO_SIGN_PAIRS, ERROR } from './common/constants.js';
 
 /**
  * Retrieves an element from the DOM by its ID.

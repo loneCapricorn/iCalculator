@@ -1,9 +1,4 @@
-import {
-  NUMBER_BTNS_IDS,
-  SPECIAL_BTNS_IDS,
-  DISPLAY_ID,
-  CURRENT_TIME_ID,
-} from '../constants/index.js';
+import { NUMBER_BTNS_IDS, SPECIAL_BTNS_IDS, DISPLAY_ID, CURRENT_TIME_ID } from '../common/constants.js';
 import { getElementById } from '../utils.js';
 
 /**
