@@ -11,6 +11,13 @@ This is a simple clone of the iPhone calculator. It supports general operations 
 - Vanilla JS
 - Webpack
 
+
+### Requirements
+
+- Node.js
+- npm
+
+
 ### Installation
 
 1. Install the packages:
@@ -34,3 +41,4 @@ This is a simple clone of the iPhone calculator. It supports general operations 
 ## Developed by
 
 Mehmed Yunuz
+
