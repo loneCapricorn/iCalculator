@@ -45,6 +45,7 @@ module.exports = (env, argv) => {
     plugins: [
       new HtmlWebpackPlugin({
         title: 'iCalculator',
+        favicon: 'public/calculator.svg',
         filename: 'index.html',
         template: 'src/templates/index.html',
       }),
