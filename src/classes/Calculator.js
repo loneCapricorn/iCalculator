@@ -47,7 +47,7 @@ class Calculator {
 
   #attachListenersToNumBtns() {
     const cb = (event) => {
-      if (this.#isEqualsActive || this.#isOperatorActive || this.#displayElement.textContent === '0') {
+      if (this.#isEqualsActive || this.#isOperatorActive || this.#displayElement.textContent === '0' || this.#displayElement.textContent === '-0') {
         this.#isEqualsActive = false;
         this.#isOperatorActive = false;
         this.#specialBtns.clear.textContent = 'C';
