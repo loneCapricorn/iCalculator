@@ -1,8 +1,10 @@
 const path = require('path');
+const { DefinePlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env, argv) => {
   const wpMode = argv.mode ?? 'development';
+  const wpDebug = wpMode === 'development' && typeof env.debug !== 'undefined' && env.debug;
 
   const config = {
     mode: wpMode,
@@ -43,6 +45,10 @@ module.exports = (env, argv) => {
       ],
     },
     plugins: [
+      // define common variables for use in iCalculator
+      new DefinePlugin({
+        DEBUG: JSON.stringify(wpDebug),
+      }),
       new HtmlWebpackPlugin({
         title: 'iCalculator',
         favicon: 'public/calculator.svg',

@@ -8,7 +8,8 @@
   "scripts": {
     "build": "webpack --mode=production",
     "build-dev": "webpack --mode=development",
-    "dev-server": "webpack serve --mode=development"
+    "dev-server": "webpack serve --mode=development",
+    "dev-server-debug": "webpack serve --mode=development --env debug"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
