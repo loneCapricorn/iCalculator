@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env, argv) => {
@@ -21,15 +22,10 @@ module.exports = (env, argv) => {
       },
       host: 'localhost',
       port: 3000,
-      open: true,
       hot: true,
     },
     module: {
       rules: [
-        {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
-        },
         {
           test: /\.js$/,
           exclude: /node_modules/,
@@ -43,6 +39,9 @@ module.exports = (env, argv) => {
       ],
     },
     plugins: [
+      new CopyPlugin({
+        patterns: [{ from: 'public/styles', to: 'styles' }],
+      }),
       new HtmlWebpackPlugin({
         title: 'iCalculator',
         favicon: 'public/calculator.svg',
