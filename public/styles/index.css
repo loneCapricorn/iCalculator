@@ -1,0 +1,93 @@
+/* reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+/* components */
+
+.max-container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.absolute-position-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#main-container {
+  background-color: black;
+  border-radius: 30px;
+  color: white;
+  font-size: x-large;
+  height: 700px;
+  width: 350px;
+}
+
+#display-container {
+  height: 270px;
+  position: relative;
+}
+
+#currentTime {
+  font-size: large;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 10px 0 0 10px;
+}
+
+#display {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  font-size: 65px;
+}
+
+#buttons-container {
+  display: grid;
+  padding: 20px 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* buttons */
+.btn {
+  background-color: gray;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px auto;
+  height: 65px;
+  width: 65px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+#division,
+#multiplication,
+#subtraction,
+#addition,
+#equals {
+  background-color: orange;
+  transition: background-color 0.5s ease;
+
+  &:focus {
+    color: orange;
+    background-color: aliceblue;
+  }
+}
+
+#zero {
+  width: 145px;
+  border-radius: 50px;
+  grid-column: span 2 / span 2;
+}
