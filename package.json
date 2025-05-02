@@ -1,6 +1,6 @@
 {
   "name": "icalculator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "iCalculator is a simple clone of the calculator from iOS v17.5.1",
   "main": "src/index.js",
   "author": "Mehmed Yunuz <yyunuzmehmed@gmail.com>",
