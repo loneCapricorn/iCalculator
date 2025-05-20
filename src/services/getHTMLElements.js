@@ -1,4 +1,4 @@
-import { NUMBER_BTNS_IDS, SPECIAL_BTNS_IDS, DISPLAY_ID, CURRENT_TIME_ID } from '../common/constants.js';
+import { NUMBER_BTNS_IDS, SPECIAL_BTNS_IDS, DISPLAY_ID } from '../common/constants.js';
 import { getElementById } from '../utils.js';
 
 /**
@@ -7,13 +7,6 @@ import { getElementById } from '../utils.js';
  * @returns {HTMLElement} The display element.
  */
 export const getDisplay = () => getElementById(DISPLAY_ID);
-
-/**
- * Retrieves the HTML element by its ID.
- *
- * @returns {HTMLElement} The time element.
- */
-export const getCurrentTime = () => getElementById(CURRENT_TIME_ID);
 
 /**
  * Retrieves number button elements by their IDs and returns them in a frozen object.

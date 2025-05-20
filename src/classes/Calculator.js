@@ -1,10 +1,9 @@
 import { addEvent, calculate, getKeyByValue } from '../utils.js';
-import { CLICK_EVENT, OPERATOR_TO_SIGN_PAIRS, ERROR, INTERVAL_TIME_IN_MS } from '../common/constants.js';
-import { getDisplay, getCurrentTime, getNumBtns, getSpecialBtns } from '../services/getHTMLElements.js';
+import { CLICK_EVENT, OPERATOR_TO_SIGN_PAIRS, ERROR } from '../common/constants.js';
+import { getDisplay, getNumBtns, getSpecialBtns } from '../services/getHTMLElements.js';
 
 class Calculator {
   #displayElement; // HTMLElement
-  #currentTime; // HTMLElement
 
   #numBtns; // { string: HTMLElement ... }
   #specialBtns; // { string: HTMLElement ... }
@@ -22,21 +21,12 @@ class Calculator {
 
   constructor() {
     this.#displayElement = getDisplay();
-    this.#currentTime = getCurrentTime();
 
     this.#numBtns = getNumBtns();
     this.#specialBtns = getSpecialBtns();
 
     this.#attachListenersToNumBtns();
     this.#attachListenersToSpecialBtns();
-
-    this.#updateCurrentTime();
-    setInterval(this.#updateCurrentTime, INTERVAL_TIME_IN_MS);
-  }
-
-  // this getter help us to access and manipulate the element inside of the setInterval
-  get currentTime() {
-    return this.#currentTime;
   }
 
   #focusActiveOperatorBtn() {
@@ -155,14 +145,6 @@ class Calculator {
         if (this.#operator) this.#focusActiveOperatorBtn();
       }
     });
-  }
-
-  #updateCurrentTime() {
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-
-    this.currentTime.textContent = `${hours}:${minutes}`;
   }
 }
 
