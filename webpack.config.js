@@ -24,20 +24,6 @@ module.exports = (env, argv) => {
       port: 3000,
       hot: true,
     },
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-            },
-          },
-        },
-      ],
-    },
     plugins: [
       new CopyPlugin({
         patterns: [{ from: 'public', to: './' }],

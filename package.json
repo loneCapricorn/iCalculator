@@ -7,13 +7,10 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode=production",
-    "build-dev": "webpack --mode=development",
-    "dev-server": "webpack serve --mode=development"
+    "build-dev": "webpack",
+    "dev-server": "webpack serve"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@babel/preset-env": "^7.25.4",
-    "babel-loader": "^9.2.1",
     "copy-webpack-plugin": "^13.0.0",
     "html-webpack-plugin": "^5.6.3",
     "webpack": "^5.94.0",
