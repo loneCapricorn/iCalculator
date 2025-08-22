@@ -3,23 +3,23 @@ import { CLICK_EVENT, OPERATOR_TO_SIGN_PAIRS, ERROR } from '../common/constants.
 import { getDisplay, getNumBtns, getSpecialBtns } from '../services/getHTMLElements.js';
 
 class Calculator {
-  #displayElement; // HTMLElement
+  static #displayElement; // HTMLElement
 
-  #numBtns; // { string: HTMLElement ... }
-  #specialBtns; // { string: HTMLElement ... }
+  static #numBtns; // { string: HTMLElement ... }
+  static #specialBtns; // { string: HTMLElement ... }
 
-  #firstOperand;
-  #operator;
-  #secondOperand;
+  static #firstOperand;
+  static #operator;
+  static #secondOperand;
 
   // this field is mainly used to reset the display content
   // it is also utilized in percent and equals logic
-  #isEqualsActive = false;
+  static #isEqualsActive = false;
 
   // this field is used to reset the display content
-  #isOperatorActive = false;
+  static #isOperatorActive = false;
 
-  constructor() {
+  static init() {
     this.#displayElement = getDisplay();
 
     this.#numBtns = getNumBtns();
@@ -29,13 +29,13 @@ class Calculator {
     this.#attachListenersToSpecialBtns();
   }
 
-  #focusActiveOperatorBtn() {
+  static #focusActiveOperatorBtn() {
     const activeOperator = getKeyByValue(OPERATOR_TO_SIGN_PAIRS, this.#operator);
     // gets the HTMLElement from specialBtns with the key activeOperator and focuses it
     this.#specialBtns[activeOperator].focus();
   }
 
-  #attachListenersToNumBtns() {
+  static #attachListenersToNumBtns() {
     const cb = (event) => {
       if (this.#isEqualsActive || this.#isOperatorActive || this.#displayElement.textContent === '0' || this.#displayElement.textContent === '-0') {
         this.#isEqualsActive = false;
@@ -53,7 +53,7 @@ class Calculator {
     }
   }
 
-  #attachListenersToSpecialBtns() {
+  static #attachListenersToSpecialBtns() {
     const cb = (event) => {
       if (this.#displayElement.textContent === ERROR) return;
 
