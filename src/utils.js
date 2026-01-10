@@ -88,40 +88,105 @@ const formatNumber = (num) => {
   return output;
 };
 
-/**
- * Performs a calculation based on the provided operands and operator.
- *
- * @param {number} firstOperand - The first operand in the calculation.
- * @param {string} operator - The operator to apply. Must be one of the values in OPERATOR_SIGNS.
- * @param {number} secondOperand - The second operand in the calculation.
- * @returns {string} The result of the calculation, or 'Error'.
- * @throws {Error} If an invalid operator is provided.
- */
-export const calculate = (firstOperand, operator, secondOperand) => {
-  let result;
+const tokenize = (expr = '') => {
+  const tokens = [''];
+  const SIGNS = Object.values(OPERATOR_TO_SIGN_PAIRS);
+  for (let i = 0; i < expr.length; i++) {
+    const char = expr.charAt(i);
 
-  // perform the calculation based on the operator
-  switch (operator) {
-    case OPERATOR_TO_SIGN_PAIRS.addition:
-      result = firstOperand + secondOperand;
-      break;
-    case OPERATOR_TO_SIGN_PAIRS.subtraction:
-      result = firstOperand - secondOperand;
-      break;
-    case OPERATOR_TO_SIGN_PAIRS.multiplication:
-      result = firstOperand * secondOperand;
-      break;
-    case OPERATOR_TO_SIGN_PAIRS.division:
-      result = secondOperand !== 0 ? firstOperand / secondOperand : ERROR;
-      break;
-    default:
-      throw new Error('Invalid operator!');
+    if (!isNaN(char) || char === ',' || char === 'e') {
+      SIGNS.includes(tokens[tokens.length - 1]) ? tokens.push(char) : (tokens[tokens.length - 1] += char);
+    } else if (SIGNS.includes(char)) {
+      tokens.push(char);
+    } else if (char === '(') {
+      const closeIndex = expr.indexOf(')', i + 1);
+      tokens.push(expr.slice(i + 1, closeIndex));
+      i = closeIndex;
+    }
   }
 
-  // handle division by zero or invalid result
-  if (result === ERROR || result === Infinity || result === -Infinity) {
-    return ERROR;
+  if (SIGNS.includes(tokens[tokens.length - 1])) tokens.pop();
+
+  return tokens;
+};
+
+const calculateExpression = (tokens) => {
+  tokens = tokens.map((t) => t.replace(',', '.'));
+  const toNumber = (s) => parseFloat(s);
+
+  let i = 0;
+  while (i < tokens.length) {
+    if (tokens[i] === '%') {
+      const B = toNumber(tokens[i - 1]);
+      const prevOp = tokens[i - 2];
+      const next = tokens[i + 1];
+
+      let value;
+
+      if (prevOp === OPERATOR_TO_SIGN_PAIRS.addition || prevOp === OPERATOR_TO_SIGN_PAIRS.subtraction) {
+        if (next === OPERATOR_TO_SIGN_PAIRS.multiplication || next === OPERATOR_TO_SIGN_PAIRS.division) {
+          const C = toNumber(tokens[i + 2]);
+          value = (B / 100) * C;
+          tokens.splice(i - 1, 4, value.toString());
+          i = 0;
+          continue;
+        } else if (next && !isNaN(toNumber(next))) {
+          const C = toNumber(next);
+          value = (B / 100) * C * C;
+          tokens.splice(i - 1, 2, value.toString());
+          i = 0;
+          continue;
+        } else {
+          const A = toNumber(tokens[i - 3]);
+          value = (A * B) / 100;
+          tokens.splice(i - 1, 2, value.toString());
+          i = 0;
+          continue;
+        }
+      } else if (prevOp === OPERATOR_TO_SIGN_PAIRS.multiplication || prevOp === OPERATOR_TO_SIGN_PAIRS.division) {
+        value = B / 100;
+        tokens.splice(i - 1, 2, value.toString());
+        i = 0;
+        continue;
+      } else {
+        value = B / 100;
+        tokens.splice(i - 1, 2, value.toString());
+        i = 0;
+        continue;
+      }
+    }
+    i++;
   }
+
+  i = 0;
+  while (i < tokens.length) {
+    if (tokens[i] === OPERATOR_TO_SIGN_PAIRS.multiplication || tokens[i] === OPERATOR_TO_SIGN_PAIRS.division) {
+      const a = toNumber(tokens[i - 1]);
+      const b = toNumber(tokens[i + 1]);
+      const result = tokens[i] === OPERATOR_TO_SIGN_PAIRS.multiplication ? a * b : a / b;
+      tokens.splice(i - 1, 3, result.toString());
+      i = 0; // restart
+    } else {
+      i++;
+    }
+  }
+
+  let result = toNumber(tokens[0]);
+  i = 1;
+  while (i < tokens.length) {
+    const op = tokens[i];
+    const num = toNumber(tokens[i + 1]);
+    if (op === OPERATOR_TO_SIGN_PAIRS.addition) result += num;
+    if (op === OPERATOR_TO_SIGN_PAIRS.subtraction) result -= num;
+    i += 2;
+  }
+
+  return result;
+};
+
+export const calculate = (expression) => {
+  const tokens = tokenize(expression);
+  const result = calculateExpression(tokens);
 
   return formatNumber(result);
 };
