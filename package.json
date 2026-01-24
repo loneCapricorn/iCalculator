@@ -8,9 +8,11 @@
   "scripts": {
     "build": "webpack --mode=production",
     "build-dev": "webpack",
-    "dev-server": "webpack serve"
+    "dev-server": "webpack serve",
+    "test": "npx playwright test"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.0",
     "copy-webpack-plugin": "^13.0.0",
     "html-webpack-plugin": "^5.6.3",
     "webpack": "^5.94.0",
