@@ -1,3 +1,3 @@
-import Calculator from './classes/Calculator.js';
+import initCalculator from './calculator.js';
 
-Calculator.init();
+document.addEventListener('DOMContentLoaded', initCalculator);

@@ -94,7 +94,7 @@ const tokenize = (expr = '') => {
   for (let i = 0; i < expr.length; i++) {
     const char = expr.charAt(i);
 
-    if (!isNaN(char) || char === ',' || char === 'e') {
+    if (!isNaN(char) || char === '.' || char === 'e') {
       SIGNS.includes(tokens[tokens.length - 1]) ? tokens.push(char) : (tokens[tokens.length - 1] += char);
     } else if (SIGNS.includes(char)) {
       tokens.push(char);
@@ -111,7 +111,6 @@ const tokenize = (expr = '') => {
 };
 
 const calculateExpression = (tokens) => {
-  tokens = tokens.map((t) => t.replace(',', '.'));
   const toNumber = (s) => parseFloat(s);
 
   let i = 0;

@@ -6,6 +6,7 @@ export const OPERATOR_TO_SIGN_PAIRS = {
   subtraction: '-',
   multiplication: 'x',
   division: '÷',
+  percent: '%',
 };
 
 export const DISPLAY_ID = 'display';
