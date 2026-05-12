@@ -73,8 +73,7 @@ const initCalculator = function () {
 
       if (Object.values(OPERATOR_TO_SIGN_PAIRS).includes(char)) {
         if (char === OPERATOR_TO_SIGN_PAIRS.subtraction && display.textContent[i - 1] === '(') {
-          display.textContent =
-            display.textContent.slice(0, i - 1) + display.textContent.slice(i + 1, display.textContent.length - 1);
+          display.textContent = display.textContent.slice(0, i - 1) + display.textContent.slice(i + 1, display.textContent.length - 1);
         } else {
           display.textContent = `${display.textContent.slice(0, i + 1)}(-${display.textContent.slice(i + 1)})`;
         }

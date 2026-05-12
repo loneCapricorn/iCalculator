@@ -9,7 +9,8 @@
     "build": "webpack --mode=production",
     "build-dev": "webpack",
     "dev-server": "webpack serve",
-    "test": "npx playwright test"
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.0",

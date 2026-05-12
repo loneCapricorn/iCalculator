@@ -111,73 +111,59 @@ const tokenize = (expr = '') => {
 };
 
 const calculateExpression = (tokens) => {
-  const toNumber = (s) => parseFloat(s);
-
   let i = 0;
+
   while (i < tokens.length) {
     if (tokens[i] === '%') {
-      const B = toNumber(tokens[i - 1]);
+      const B = parseFloat(tokens[i - 1]);
       const prevOp = tokens[i - 2];
       const next = tokens[i + 1];
-
       let value;
 
       if (prevOp === OPERATOR_TO_SIGN_PAIRS.addition || prevOp === OPERATOR_TO_SIGN_PAIRS.subtraction) {
         if (next === OPERATOR_TO_SIGN_PAIRS.multiplication || next === OPERATOR_TO_SIGN_PAIRS.division) {
-          const C = toNumber(tokens[i + 2]);
+          const C = parseFloat(tokens[i + 2]);
           value = (B / 100) * C;
           tokens.splice(i - 1, 4, value.toString());
-          i = 0;
-          continue;
-        } else if (next && !isNaN(toNumber(next))) {
-          const C = toNumber(next);
+        } else if (next && !isNaN(parseFloat(next))) {
+          const C = parseFloat(next);
           value = (B / 100) * C * C;
           tokens.splice(i - 1, 2, value.toString());
-          i = 0;
-          continue;
         } else {
-          const A = toNumber(tokens[i - 3]);
+          const A = parseFloat(tokens[i - 3]);
           value = (A * B) / 100;
           tokens.splice(i - 1, 2, value.toString());
-          i = 0;
-          continue;
         }
-      } else if (prevOp === OPERATOR_TO_SIGN_PAIRS.multiplication || prevOp === OPERATOR_TO_SIGN_PAIRS.division) {
-        value = B / 100;
-        tokens.splice(i - 1, 2, value.toString());
-        i = 0;
-        continue;
       } else {
         value = B / 100;
         tokens.splice(i - 1, 2, value.toString());
-        i = 0;
-        continue;
       }
+
+      i = 0;
+      continue;
     }
     i++;
   }
 
-  i = 0;
+  i = 1;
   while (i < tokens.length) {
-    if (tokens[i] === OPERATOR_TO_SIGN_PAIRS.multiplication || tokens[i] === OPERATOR_TO_SIGN_PAIRS.division) {
-      const a = toNumber(tokens[i - 1]);
-      const b = toNumber(tokens[i + 1]);
-      const result = tokens[i] === OPERATOR_TO_SIGN_PAIRS.multiplication ? a * b : a / b;
+    const op = tokens[i];
+    if (op === OPERATOR_TO_SIGN_PAIRS.multiplication || op === OPERATOR_TO_SIGN_PAIRS.division) {
+      const a = parseFloat(tokens[i - 1]);
+      const b = parseFloat(tokens[i + 1]);
+      const result = op === OPERATOR_TO_SIGN_PAIRS.multiplication ? a * b : a / b;
       tokens.splice(i - 1, 3, result.toString());
-      i = 0; // restart
     } else {
       i++;
     }
   }
 
-  let result = toNumber(tokens[0]);
-  i = 1;
-  while (i < tokens.length) {
-    const op = tokens[i];
-    const num = toNumber(tokens[i + 1]);
+  let result = parseFloat(tokens[0]);
+  for (let j = 1; j < tokens.length; j += 2) {
+    const op = tokens[j];
+    const num = parseFloat(tokens[j + 1]);
     if (op === OPERATOR_TO_SIGN_PAIRS.addition) result += num;
-    if (op === OPERATOR_TO_SIGN_PAIRS.subtraction) result -= num;
-    i += 2;
+    else if (op === OPERATOR_TO_SIGN_PAIRS.subtraction) result -= num;
   }
 
   return result;
